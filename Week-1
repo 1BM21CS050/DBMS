@@ -1,0 +1,71 @@
+create database 1bm21cs065_insurance;
+use 1bm21cs065_insurance;
+create table person(
+driver_id varchar(20),
+name varchar(20),
+address varchar(30),
+primary key(driver_id)
+);
+desc person;
+create table car(
+reg_num varchar(10),
+model varchar(10),
+year int,
+primary key(reg_num)
+);
+desc car;
+create table accident(
+report_num int,
+accident_date date,
+location varchar(20),
+primary key(report_num)
+);
+desc accident;
+create table owns(
+driver_id varchar(20),
+reg_num varchar(10),
+primary key(driver_id,reg_num),
+foreign key(driver_id) references person(driver_id),
+foreign key(reg_num) references car(reg_num)
+);
+create table participated(
+driver_id varchar(20),
+reg_num varchar(10),
+report_num int,
+damage_amout int,
+foreign key(driver_id) references person(driver_id),
+foreign key(reg_num) references car(reg_num),
+foreign key(report_num) references accident(report_num)
+);
+desc participated;
+insert into person values(&#39;A01&#39;,&#39;Richard&#39;,&#39;Srinivas nagar&#39;);
+insert into person values(&#39;A02&#39;,&#39;Pradeep&#39;,&#39;Rajaji nagar&#39;);
+insert into person values(&#39;A03&#39;,&#39;Smith&#39;,&#39;Ashok nagar&#39;);
+insert into person values(&#39;A04&#39;,&#39;Venu&#39;,&#39;N R colony&#39;);
+
+insert into person values(&#39;A05&#39;,&#39;Jhon&#39;,&#39;Hanumanth nagar&#39;);
+select * from person;
+insert into car values(&#39;KA052250&#39;,&#39;Indica&#39;,1990);
+insert into car values(&#39;KA031181&#39;,&#39;lANCER&#39;,1957);
+insert into car values(&#39;KA095477&#39;,&#39;Toyata&#39;,1998);
+insert into car values(&#39;KA053408&#39;,&#39;Honda&#39;,2008);
+insert into car values(&#39;KA041702&#39;,&#39;Audi&#39;,2005);
+select * from car;
+insert into accident values(11,&#39;2003-01-01&#39;,&#39;Mysore road&#39;);
+insert into accident values(12,&#39;2004-02-02&#39;,&#39;South end circle&#39;);
+insert into accident values(13,&#39;2003-01-21&#39;,&#39;Bull temple end&#39;);
+insert into accident values(14,&#39;2008-02-17&#39;,&#39;Mysore road&#39;);
+insert into accident values(15,&#39;2004-03-05&#39;,&#39;Kanakapura road&#39;);
+select * from accident;
+insert into owns values(&#39;A01&#39;,&#39;KA052250&#39;);
+insert into owns values(&#39;A02&#39;,&#39;KA053408&#39;);
+insert into owns values(&#39;A03&#39;,&#39;KA031181&#39;);
+insert into owns values(&#39;A04&#39;,&#39;KA095477&#39;);
+insert into owns values(&#39;A05&#39;,&#39;KA041702&#39;);
+select * from owns;
+insert into participated values(&#39;A01&#39;,&#39;KA052250&#39;,11,10000);
+insert into participated values(&#39;A02&#39;,&#39;KA053408&#39;,12,50000);
+insert into participated values(&#39;A03&#39;,&#39;KA095477&#39;,13,25000);
+insert into participated values(&#39;A04&#39;,&#39;KA031181&#39;,14,3000);
+insert into participated values(&#39;A05&#39;,&#39;KA041702&#39;,15,5000);
+select * from participated;
